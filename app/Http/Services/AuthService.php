@@ -27,7 +27,7 @@ class AuthService
 
     public function redirOauth(){
         if (Auth::check()) {
-            return ["you now login, here your data :", Auth::user()];
+            return ["you already login, here your data :", Auth::user()];
         }
 
         return Socialite::driver('google')->redirect();
@@ -35,7 +35,7 @@ class AuthService
 
     public function login(){
         if (Auth::check()) {
-            return ["you now login, here your data :", Auth::user()];
+            return ["you already login, here your data :", Auth::user()];
         }
 
         $user = Socialite::driver('google')->user();
