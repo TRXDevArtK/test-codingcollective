@@ -1,0 +1,309 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "test-coding-collective-api-docs",
+        "version": "1.0"
+    },
+    "paths": {
+        "/login": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Oauth Login Gateway",
+                "description": "this is route use to login using google oauth2",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "redirect to /login/redir"
+                    }
+                }
+            }
+        },
+        "/login/redir": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Oauth Login Redirect",
+                "description": "this is route use to as callback from /login oauth2",
+                "operationId": "login-redir",
+                "responses": {
+                    "default": {
+                        "description": "redirect to this app base_url()/"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "logout gateway",
+                "description": "this is route use to logout session login",
+                "operationId": "logout",
+                "responses": {
+                    "default": {
+                        "description": "will show you now logout message"
+                    }
+                }
+            }
+        },
+        "/candidate": {
+            "get": {
+                "tags": [
+                    "candidate"
+                ],
+                "summary": "candidate get",
+                "description": "this is route use to read all candidate data",
+                "operationId": "candidate-get",
+                "responses": {
+                    "default": {
+                        "description": "will result in list of candidate array"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "candidate"
+                ],
+                "summary": "Candidate store",
+                "description": "this is route use to store candidate data",
+                "operationId": "candidate-store",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name input max 255, example : Rulaina Velania",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email input max 255, example : vedartk@gmail.com",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "phone input max 255, example : 085211223344",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "education",
+                        "in": "query",
+                        "description": "education input max 255, example : Bachelor Degree",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "birthday",
+                        "in": "query",
+                        "description": "birthday date inout, example : 2019-02-01",
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "experience",
+                        "in": "query",
+                        "description": "experience input max 255, example : 12 year exp",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "last_position",
+                        "in": "query",
+                        "description": "last_position input max 255, example : Back-End Developer",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "applied_position",
+                        "in": "query",
+                        "description": "applied_position input max 255, example : Full-Stack Developer",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "skill",
+                        "in": "query",
+                        "description": "skill input max 255, example : PHP,HTML,JS,CSS,Laravel/NodeJS",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "resume_link",
+                        "in": "query",
+                        "description": "resume_link input file, example : {{choose your file from computer}}",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "will show [success data created]"
+                    }
+                }
+            }
+        },
+        "/candidate/update": {
+            "post": {
+                "tags": [
+                    "candidate"
+                ],
+                "summary": "Candidate update",
+                "description": "this is route use to update candidate data",
+                "operationId": "candidate-update",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name input max 255, example : Rulaina Velania",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email input max 255, example : vedartk@gmail.com",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "phone input max 255, example : 085211223344",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "education",
+                        "in": "query",
+                        "description": "education input max 255, example : Bachelor Degree",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "birthday",
+                        "in": "query",
+                        "description": "birthday date inout, example : 2019-02-01",
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "experience",
+                        "in": "query",
+                        "description": "experience input max 255, example : 12 year exp",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "last_position",
+                        "in": "query",
+                        "description": "last_position input max 255, example : Back-End Developer",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "applied_position",
+                        "in": "query",
+                        "description": "applied_position input max 255, example : Full-Stack Developer",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "skill",
+                        "in": "query",
+                        "description": "skill input max 255, example : PHP,HTML,JS,CSS,Laravel/NodeJS",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "resume_link",
+                        "in": "query",
+                        "description": "resume_link input file, example : {{choose your file from computer}}",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "will show [success data created]"
+                    }
+                }
+            }
+        },
+        "/candidate/delete": {
+            "post": {
+                "tags": [
+                    "candidate"
+                ],
+                "summary": "Candidate delete",
+                "description": "this is route use to delete candidate data",
+                "operationId": "candidate-delete",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email input max 255, example : vedartk@gmail.com",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "will show [success data created]"
+                    }
+                }
+            }
+        }
+    }
+}
