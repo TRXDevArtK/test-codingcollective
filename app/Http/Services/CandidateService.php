@@ -46,7 +46,9 @@ class CandidateService
     }
 
     public function create($data){
-        $data['resume_link'] = $this->fileService->uploadResumeAndGetPath($data);
+        if(!empty($data['resume_link'])){
+            $data['resume_link'] = $this->fileService->uploadResumeAndGetPath($data);
+        }
         $init = $this->candidateRepository->create(["data" => $data]);
         return $init;
     }

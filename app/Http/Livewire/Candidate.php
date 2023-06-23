@@ -1,17 +1,37 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Livewire;
 
 use App\Http\Services\AuthService;
 use App\Http\Services\CandidateService;
-use Exception;
 use Illuminate\Http\Request;
 
-class CandidateController extends Controller
+use Exception;
+
+use Illuminate\Support\Facades\Log;
+use Livewire\Component;
+
+class Candidate extends Component
 {
     private $candidateService, $authService;
 
-    public function __construct(CandidateService $candidateService, AuthService $authService)
+    protected $refresh = false;
+
+    public $datas;
+
+    //variable list
+    public $name;
+    public $email;
+    public $phone;
+    public $education;
+    public $birthday;
+    public $experience;
+    public $last_position;
+    public $applied_position;
+    public $skill;
+    public $resume_link;
+
+    public function boot(CandidateService $candidateService, AuthService $authService)
     {
         $this->candidateService = $candidateService;
         $this->authService = $authService;
@@ -40,11 +60,7 @@ class CandidateController extends Controller
 
         $init = $this->candidateService;
 
-        try {
-            return "<pre>".json_encode($init->get(), JSON_PRETTY_PRINT)."<pre>";
-        } catch (\Throwable $th) {
-            return ["something error", $th];
-        }
+        $this->datas = $init->get();
     }
 
     /**
@@ -141,15 +157,16 @@ class CandidateController extends Controller
      *     )
      * )
      */
-    public function store(Request $request)
+
+    public function store()
     {
         $permission = json_decode($this->authService->getLoginUserData()['candidate_permission'])[1];
         if($permission === 0){
-            return "you don't have permission to store/create";
+            $this->datas = "you don't have permission to store/create";
         }
 
         $init = $this->candidateService;
-        $validatedRequest = array_filter($request->validate([
+        $validatedRequest = array_filter($this->validate([
             'name' => 'nullable|string',
             'email' => 'required|string',
             'phone' => 'nullable|string',
@@ -164,9 +181,9 @@ class CandidateController extends Controller
 
         try {
             $init->create($validatedRequest);
-            return "success data created";
+            $this->datas = $init->get();
         } catch (\Throwable $th) {
-            return ["something error", $th];
+            $this->datas = $th->__toString();
         }
     }
 
@@ -272,7 +289,7 @@ class CandidateController extends Controller
         }
 
         $init = $this->candidateService;
-        $validatedRequest = array_filter($request->validate([
+        $validatedRequest = array_filter($this->validate([
             'name' => 'nullable|string',
             'email' => 'required|string',
             'phone' => 'nullable|string',
@@ -287,12 +304,14 @@ class CandidateController extends Controller
 
         try {
             $result = $init->update($validatedRequest);
+
             if($result === 0){
-                throw new Exception("Something error, pls check if data is there or not");
+                $this->datas = "Something error, pls check if data is there or not";
             }
-            return "success data updated";
+
+            $this->get();
         } catch (\Throwable $th) {
-            return ["something error", $th];
+            $this->datas = $th;
         }
     }
 
@@ -326,7 +345,7 @@ class CandidateController extends Controller
         }
 
         $init = $this->candidateService;
-        $validatedRequest = array_filter($request->validate([
+        $validatedRequest = array_filter($this->validate([
             'name' => 'nullable|string',
             'email' => 'required|string',
             'phone' => 'nullable|string',
@@ -341,9 +360,14 @@ class CandidateController extends Controller
 
         try {
             $init->delete($validatedRequest);
-            return "success data deleted";
+            $this->get();
         } catch (\Throwable $th) {
-            return ["something error", $th];
+            $this->datas = $th;
         }
+    }
+
+    public function render()
+    {
+        return view('livewire.candidate');
     }
 }

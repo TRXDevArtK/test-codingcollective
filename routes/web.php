@@ -23,6 +23,10 @@ Route::middleware(['auth'])->group(function () {
         return view('fastview');
     });
 
+    Route::get('/livewire', function () {
+        return view('livewireview');
+    });
+
     Route::get('candidate', [CandidateController::class, 'get'])->name('candidate.get');
     Route::post('candidate', [CandidateController::class, 'store'])->name('candidate.store');
     Route::post('candidate/update', [CandidateController::class, 'update'])->name('candidate.update');
