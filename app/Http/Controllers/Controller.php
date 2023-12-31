@@ -7,7 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 /**
- * @OA\Info(title="test-coding-collective-api-docs", version="1.0")
+ * @OA\Info(title="auth-crud-candidate-api-docs", version="1.0")
  */
 
 class Controller extends BaseController

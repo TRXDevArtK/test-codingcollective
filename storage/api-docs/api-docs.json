@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "test-coding-collective-api-docs",
+        "title": "auth-crud-candidate-api-docs",
         "version": "1.0"
     },
     "paths": {
